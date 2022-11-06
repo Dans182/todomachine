@@ -1,6 +1,7 @@
 import React from "react";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoSearch } from "./components/TodoSearch";
+import { CreateTodoButton } from "./components/CreateTodoButton";
 //import './App.css';
 
 const todos = [
@@ -20,7 +21,7 @@ function App() {
           <TodoItem />
         ))}
       </TodoList> */}
-      {/* <CreateTodoButton /> */}
+      <CreateTodoButton />
       <button>+</button>
     </>
   );
