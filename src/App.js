@@ -18,13 +18,8 @@ function App() {
       <TodoCounter />
       <TodoSearch />
       <input placeholder="Cebolla" />
-      <TodoList>
-        {todos.map((todo) => (
-          <TodoItem />
-        ))}
-      </TodoList>
+      <TodoList/>
       <CreateTodoButton />
-      <button>+</button>
     </>
   );
 }

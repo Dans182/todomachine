@@ -1,7 +1,11 @@
 import React from "react";
 
 function CreateTodoButton() {
-  return <></>;
+  return (
+    <>
+      <button>+</button>
+    </>
+  );
 }
 
 export { CreateTodoButton };
