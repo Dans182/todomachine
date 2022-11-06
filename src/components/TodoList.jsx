@@ -1,19 +1,11 @@
 import React from "react";
-import { TodoItem } from "./TodoItem";
+//import { TodoItem } from "./TodoItem";
 
-const todos = [
-  { text: "Cortar cebolla", completed: false },
-  { text: "Tomar curso de Intro de React", completed: false },
-  { text: "Llorar con la llorona", completed: false },
-];
-
-function TodoList() {
+function TodoList(props) {
   return (
-    <>
-      {todos.map((todo) => (
-        <TodoItem />
-      ))}
-    </>
+    <section>
+      <ul>{props.children}</ul>
+    </section>
   );
 }
 
