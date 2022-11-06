@@ -1,3 +1,5 @@
+import React from "react";
+import { TodoCounter } from "./TodoCounter";
 //import './App.css';
 
 const todos = [
@@ -10,13 +12,15 @@ function App() {
   return (
     <>
       <TodoCounter />
-      <h2>Has completado 2 de 3 TODOs</h2>
-      <TodoSearch />
+      {/* <TodoSearch /> */}
       <input placeholder="Cebolla" />
-      <TodoList>
-        <TodoItem />
-      </TodoList>
-      <CreateTodoButton />
+      {/* <TodoList>
+        {todos.map((todo) => (
+          <TodoItem />
+        ))}
+      </TodoList> */}
+      {/* <CreateTodoButton /> */}
+      <button>+</button>
     </>
   );
 }
