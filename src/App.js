@@ -6,18 +6,11 @@ import { TodoList } from "./components/TodoList";
 import { TodoItem } from "./components/TodoItem";
 //import './App.css';
 
-const todos = [
-  { text: "Cortar cebolla", completed: false },
-  { text: "Tomar curso de Intro de React", completed: false },
-  { text: "Llorar con la llorona", completed: false },
-];
-
 function App() {
   return (
     <>
       <TodoCounter />
       <TodoSearch />
-      <input placeholder="Cebolla" />
       <TodoList/>
       <CreateTodoButton />
     </>
