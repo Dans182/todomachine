@@ -2,6 +2,8 @@ import React from "react";
 import { TodoCounter } from "./components/TodoCounter";
 import { TodoSearch } from "./components/TodoSearch";
 import { CreateTodoButton } from "./components/CreateTodoButton";
+import { TodoList } from "./components/TodoList";
+import { TodoItem } from "./components/TodoItem";
 //import './App.css';
 
 const todos = [
@@ -16,11 +18,11 @@ function App() {
       <TodoCounter />
       <TodoSearch />
       <input placeholder="Cebolla" />
-      {/* <TodoList>
+      <TodoList>
         {todos.map((todo) => (
           <TodoItem />
         ))}
-      </TodoList> */}
+      </TodoList>
       <CreateTodoButton />
       <button>+</button>
     </>
