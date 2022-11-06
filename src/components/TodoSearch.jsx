@@ -4,7 +4,7 @@ import "./TodoSearch.css"
 function TodoSearch() {
   return (
     <>
-      <input className="TodoSearch" placeholder="Cebolla" />
+      <input className="TodoSearch" placeholder="Add your task" />
     </>
   );
 }
