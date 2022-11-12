@@ -6,13 +6,14 @@ import { TodoList } from "./components/TodoList";
 import { TodoItem } from "./components/TodoItem";
 //import './App.css';
 
-const todos = [
+const defaultTodos = [
   { text: "Cortar cebolla", completed: true },
   { text: "Tomar curso de Intro de React", completed: false },
   { text: "Llorar con la llorona", completed: false },
 ];
 
 function App() {
+  const [todos, setTodos] = React.useState(defaultTodos);
   const [searchValue, setSearchValue] = useState("");
 
   return (
