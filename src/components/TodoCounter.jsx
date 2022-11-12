@@ -6,10 +6,14 @@ import "./TodoCounter.css";
 //   backgroundColor: "yellow"
 // }
 
-function TodoCounter() {
+function TodoCounter({ total, completed }) {
+  // function TodoCounter(props) {
+  //  const {total, completed} = props;
   return (
     <>
-      <h2 className="TodoCounter">Has completado 2 de 3 TODOs</h2>
+      <h2 className="TodoCounter">
+        Has completado {completed} de {total} TODOs
+      </h2>
     </>
   );
 }
