@@ -13,11 +13,15 @@ const defaultTodos = [
 ];
 
 function App() {
+  // Estado inicial de nuestros TODOs
   const [todos, setTodos] = React.useState(defaultTodos);
+
   const [searchValue, setSearchValue] = useState("");
 
   //const completedTodos = todos.filter((todo) => todo.completed == true).length;
+  // Cantidad de TODOs completados
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
+  // Cantidad total de TODOs
   const totalTodos = todos.length;
 
   let searchedTodos = [];
@@ -49,9 +53,11 @@ function App() {
 
   return (
     <>
+      {/* Pasamos el estado a nuestro componente */}
       <TodoCounter total={totalTodos} completed={completedTodos} />
       <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
       <TodoList>
+        {/* Acá me despliega tantos TodosItems como haya registrados */}
         {searchedTodos.map((todo) => (
           <TodoItem
             key={todo.text}
@@ -59,7 +65,6 @@ function App() {
             completed={todo.completed}
             onComplete={() => completeTodo(todo.text)}
             onDelete={() => deleteTodo(todo.text)}
-
           />
         ))}
       </TodoList>

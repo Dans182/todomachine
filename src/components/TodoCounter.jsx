@@ -6,6 +6,7 @@ import "./TodoCounter.css";
 //   backgroundColor: "yellow"
 // }
 
+// Desestructuramos los props que pasamos al componente
 function TodoCounter({ total, completed }) {
   // function TodoCounter(props) {
   //  const {total, completed} = props;
