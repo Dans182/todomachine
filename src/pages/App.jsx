@@ -6,15 +6,33 @@ import { TodoList } from "../components/TodoList";
 import { TodoItem } from "../components/TodoItem";
 //import './App.css';
 
-const defaultTodos = [
-  { text: "Cortar cebolla", completed: true },
-  { text: "Tomar curso de Intro de React", completed: false },
-  { text: "Llorar con la llorona", completed: false },
-];
+// const defaultTodos = [
+//   { text: "Cortar cebolla", completed: true },
+//   { text: "Tomar curso de Intro de React", completed: false },
+//   { text: "Llorar con la llorona", completed: false },
+// ];
 
 function App() {
+  const localStorageTodos = localStorage.getItem("TODOS_V1");
+  let parsedTodos;
+
+  //Con la exclamacion y localStorage (!localStorage) verificamos si no existe, es null, undefined o false o un string vacío.
+  if (!localStorageTodos) {
+    //Recuerda que localstorage solo puede guardar información en strings
+    /*Es muy importante saber que localStorage solamente puede guardar texto, 
+    no objetos, arreglos, números, solo strings para esto podemos utilizar unos métodos de JSON
+    Convertir a texto: JSON.stringify()
+    Convertir a JavaScript: JSON.parse()*/
+
+    localStorage.setItem("TODOS_V1", JSON.stringify([]));
+    parsedTodos = [];
+  } else {
+    //si ya hay creado algo en storage, parsedTodos que es un String, ahora la transformamos en un objeto de js con JSON.parse.
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
   // Estado inicial de nuestros TODOs
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const [todos, setTodos] = React.useState(parsedTodos);
 
   // El estado de nuestra búsqueda
   const [searchValue, setSearchValue] = useState("");
