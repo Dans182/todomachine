@@ -23,7 +23,6 @@ function App() {
     no objetos, arreglos, números, solo strings para esto podemos utilizar unos métodos de JSON
     Convertir a texto: JSON.stringify()
     Convertir a JavaScript: JSON.parse()*/
-
     localStorage.setItem("TODOS_V1", JSON.stringify([]));
     parsedTodos = [];
   } else {
@@ -44,6 +43,7 @@ function App() {
   const totalTodos = todos.length;
   // Creamos una nueva variable en donde guardaremos las coincidencias con la búsqueda
   let searchedTodos = [];
+
   // Lógica para filtrar
   if (!searchValue.length >= 1) {
     searchedTodos = todos;
@@ -54,6 +54,7 @@ function App() {
       return todoText.includes(searchText);
     });
   }
+  
   /*Función para completar una tarea*/
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex((todo) => todo.text === text);
