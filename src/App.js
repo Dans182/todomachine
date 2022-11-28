@@ -31,11 +31,19 @@ function App() {
       return todoText.includes(searchText);
     });
   }
-
-  const completeTodos = (text) => {
+  /*Función para completar una tarea*/
+  const completeTodo = (text) => {
     const todoIndex = todos.findIndex((todo) => todo.text === text);
     const newTodos = [...todos];
     newTodos[todoIndex].completed = true;
+    setTodos(newTodos);
+  };
+
+  /*Función para eliminar una tarea*/
+  const deleteTodo = (text) => {
+    const todoIndex = todos.findIndex((todo) => todo.text === text);
+    const newTodos = [...todos];
+    newTodos.splice(todoIndex, 1);
     setTodos(newTodos);
   };
 
@@ -49,7 +57,7 @@ function App() {
             key={todo.text}
             text={todo.text}
             completed={todo.completed}
-            onComplete={() => completeTodos(todo.text)}
+            onComplete={() => completeTodo(todo.text)}
           />
         ))}
       </TodoList>
