@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { TodoCounter } from "./components/TodoCounter";
-import { TodoSearch } from "./components/TodoSearch";
-import { CreateTodoButton } from "./components/CreateTodoButton";
-import { TodoList } from "./components/TodoList";
-import { TodoItem } from "./components/TodoItem";
+import { TodoCounter } from "../components/TodoCounter";
+import { TodoSearch } from "../components/TodoSearch";
+import { CreateTodoButton } from "../components/CreateTodoButton";
+import { TodoList } from "../components/TodoList";
+import { TodoItem } from "../components/TodoItem";
 //import './App.css';
 
 const defaultTodos = [
@@ -16,6 +16,7 @@ function App() {
   // Estado inicial de nuestros TODOs
   const [todos, setTodos] = React.useState(defaultTodos);
 
+  // El estado de nuestra búsqueda
   const [searchValue, setSearchValue] = useState("");
 
   //const completedTodos = todos.filter((todo) => todo.completed == true).length;
@@ -23,9 +24,9 @@ function App() {
   const completedTodos = todos.filter((todo) => !!todo.completed).length;
   // Cantidad total de TODOs
   const totalTodos = todos.length;
-
+  // Creamos una nueva variable en donde guardaremos las coincidencias con la búsqueda
   let searchedTodos = [];
-
+  // Lógica para filtrar
   if (!searchValue.length >= 1) {
     searchedTodos = todos;
   } else {
@@ -58,6 +59,7 @@ function App() {
       <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
       <TodoList>
         {/* Acá me despliega tantos TodosItems como haya registrados */}
+        {/* Regresamos solamente los TODOs buscados */}
         {searchedTodos.map((todo) => (
           <TodoItem
             key={todo.text}
