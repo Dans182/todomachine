@@ -16,27 +16,36 @@ import { TodoItem } from "../components/TodoItem";
 //con la palabra "use"
 
 function useLocalStorage(itemName, initialValue) {
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   // Estado inicial de nuestros TODOs
   const [item, setItem] = React.useState(initialValue);
 
+  //Sin las [] se ejecuta el useEffect cada vez que se renderice la página
+  //Con las [] se ejecuta solo la primera vez que se renderiza la página
+  //Con un valor dentro de las [], se renderiza cuando hay cambios en ese valor dentro de llaves
   useEffect(() => {
     setTimeout(() => {
-      const localStorageItem = localStorage.getItem(itemName);
-      let parsedItem;
-      //Con la exclamacion y localStorage (!localStorage) verificamos si no existe, es null, undefined o false o un string vacío.
-      if (!localStorageItem) {
-        //Recuerda que localstorage solo puede guardar información en strings
-        /*Es muy importante saber que localStorage solamente puede guardar texto, 
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+        //Con la exclamacion y localStorage (!localStorage) verificamos si no existe, es null, undefined o false o un string vacío.
+        if (!localStorageItem) {
+          //Recuerda que localstorage solo puede guardar información en strings
+          /*Es muy importante saber que localStorage solamente puede guardar texto, 
         no objetos, arreglos, números, solo strings para esto podemos utilizar unos métodos de JSON
         Convertir a texto: JSON.stringify()
         Convertir a JavaScript: JSON.parse()*/
-        localStorage.setItem(itemName, JSON.stringify(initialValue));
-        parsedItem = initialValue;
-      } else {
-        //si ya hay creado algo en storage, parsedItem que es un String, ahora la transformamos en un objeto de js con JSON.parse.
-        parsedItem = JSON.parse(localStorageItem);
-      }
-      setItem(parsedItem);
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        } else {
+          //si ya hay creado algo en storage, parsedItem que es un String, ahora la transformamos en un objeto de js con JSON.parse.
+          parsedItem = JSON.parse(localStorageItem);
+        }
+        setItem(parsedItem);
+        setLoading(false);
+      } catch (error) {}
     }, 1000);
   });
 
@@ -46,13 +55,19 @@ function useLocalStorage(itemName, initialValue) {
     setItem(newItem);
     //En localStorage lo enviamos en String
   };
-  return [item, saveItem];
+  //por convención, si mi custom hook devuelve dos valores, sería un array
+  //si devuelve mas de 2, pues debería ser un objeto.
+  return { item, saveItem, loading };
 }
 
 function App() {
   //La idea es que nuestro componente App consuma directamente el localStorage a través
   //de nuestro customhook de localStorage
-  const [todos, saveTodos] = useLocalStorage("TODOS_V1", []);
+  const {
+    item: todos,
+    saveItem: saveTodos,
+    loading,
+  } = useLocalStorage("TODOS_V1", []);
 
   // El estado de nuestra búsqueda
   const [searchValue, setSearchValue] = useState("");
@@ -92,19 +107,16 @@ function App() {
     saveTodos(newTodos);
   };
 
-  //Sin las [] se ejecuta el useEffect cada vez que se renderice la página
-  //Con las [] se ejecuta solo la primera vez que se renderiza la página
-  //Con un valor dentro de las [], se renderiza cuando hay cambios en ese valor dentro de llaves
-  useEffect(() => {
-    console.log("Acá llamamos al useEffect");
-  }, []);
-
   return (
     <>
       {/* Pasamos el estado a nuestro componente */}
       <TodoCounter total={totalTodos} completed={completedTodos} />
       <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
       <TodoList>
+        {/* {error && <p>Desespérate, hubo un error...</p>} */}
+        {loading && <p>Estamos cargando, no desesperes..</p>}
+        {!loading && !searchedTodos.length && <p>¡Crea tu primer Todo!</p>}
+
         {/* Acá me despliega tantos TodosItems como haya registrados */}
         {/* Regresamos solamente los TODOs buscados */}
         {searchedTodos.map((todo) => (
