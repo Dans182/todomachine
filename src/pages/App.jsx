@@ -45,19 +45,25 @@ function useLocalStorage(itemName, initialValue) {
         }
         setItem(parsedItem);
         setLoading(false);
-      } catch (error) {}
+      } catch (error) {
+        setError(error);
+      }
     }, 1000);
   });
 
   const saveItem = (newItem) => {
-    const stringifiedItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifiedItem);
-    setItem(newItem);
-    //En localStorage lo enviamos en String
+    try {
+      const stringifiedItem = JSON.stringify(newItem);
+      localStorage.setItem(itemName, stringifiedItem);
+      setItem(newItem);
+      //En localStorage lo enviamos en String
+    } catch (error) {
+      setError(error);
+    }
   };
   //por convención, si mi custom hook devuelve dos valores, sería un array
   //si devuelve mas de 2, pues debería ser un objeto.
-  return { item, saveItem, loading };
+  return { item, saveItem, loading, error };
 }
 
 function App() {
@@ -67,6 +73,7 @@ function App() {
     item: todos,
     saveItem: saveTodos,
     loading,
+    error
   } = useLocalStorage("TODOS_V1", []);
 
   // El estado de nuestra búsqueda
@@ -113,7 +120,7 @@ function App() {
       <TodoCounter total={totalTodos} completed={completedTodos} />
       <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
       <TodoList>
-        {/* {error && <p>Desespérate, hubo un error...</p>} */}
+        {error && <p>Desespérate, hubo un error...</p>}
         {loading && <p>Estamos cargando, no desesperes..</p>}
         {!loading && !searchedTodos.length && <p>¡Crea tu primer Todo!</p>}
 
