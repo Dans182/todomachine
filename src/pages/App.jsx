@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TodoCounter } from "../components/TodoCounter";
 import { TodoSearch } from "../components/TodoSearch";
 import { CreateTodoButton } from "../components/CreateTodoButton";
@@ -47,7 +47,6 @@ function useLocalStorage(itemName, initialValue) {
 function App() {
   //La idea es que nuestro componente App consuma directamente el localStorage a través
   //de nuestro customhook de localStorage
-
   const [todos, saveTodos] = useLocalStorage("TODOS_V1", []);
 
   // El estado de nuestra búsqueda
@@ -87,6 +86,13 @@ function App() {
     newTodos.splice(todoIndex, 1);
     saveTodos(newTodos);
   };
+
+  //Sin las [] se ejecuta el useEffect cada vez que se renderice la página
+  //Con las [] se ejecuta solo la primera vez que se renderiza la página
+  //Con un valor dentro de las [], se renderiza cuando hay cambios en ese valor dentro de llaves
+  useEffect(() => {
+    console.log("Acá llamamos al useEffect");
+  }, []);
 
   return (
     <>
