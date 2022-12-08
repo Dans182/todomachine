@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { TodoCounter } from "../components/TodoCounter";
-import { TodoSearch } from "../components/TodoSearch";
-import { CreateTodoButton } from "../components/CreateTodoButton";
-import { TodoList } from "../components/TodoList";
-import { TodoItem } from "../components/TodoItem";
-//import './App.css';
+import { AppUI } from "./AppUI";
 
+//import './App.css';
 // const defaultTodos = [
 //   { text: "Cortar cebolla", completed: true },
 //   { text: "Tomar curso de Intro de React", completed: false },
@@ -16,6 +12,8 @@ import { TodoItem } from "../components/TodoItem";
 //con la palabra "use"
 
 function useLocalStorage(itemName, initialValue) {
+  // Creamos el estado inicial para nuestros errores y carga
+
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +24,11 @@ function useLocalStorage(itemName, initialValue) {
   //Con las [] se ejecuta solo la primera vez que se renderiza la página
   //Con un valor dentro de las [], se renderiza cuando hay cambios en ese valor dentro de llaves
   useEffect(() => {
+    // Simulamos un segundo de delay de carga
+
     setTimeout(() => {
+      // Manejamos la tarea dentro de un try/catch por si ocurre algún error
+
       try {
         const localStorageItem = localStorage.getItem(itemName);
         let parsedItem;
@@ -46,34 +48,46 @@ function useLocalStorage(itemName, initialValue) {
         setItem(parsedItem);
         setLoading(false);
       } catch (error) {
+        // En caso de un error lo guardamos en el estado
+
         setError(error);
+      } finally {
+        // También podemos utilizar la última parte del try/cath (finally) para terminar la carga
+        setLoading(false);
       }
     }, 1000);
   });
 
   const saveItem = (newItem) => {
+    // Manejamos la tarea dentro de un try/catch por si ocurre algún error
+
     try {
       const stringifiedItem = JSON.stringify(newItem);
       localStorage.setItem(itemName, stringifiedItem);
       setItem(newItem);
       //En localStorage lo enviamos en String
     } catch (error) {
+      // En caso de algún error lo guardamos en el estado
+
       setError(error);
     }
   };
   //por convención, si mi custom hook devuelve dos valores, sería un array
   //si devuelve mas de 2, pues debería ser un objeto.
+  // Para tener un mejor control de los datos retornados, podemos regresarlos dentro de un objeto
+
   return { item, saveItem, loading, error };
 }
 
 function App() {
+  // Desestructuramos los nuevos datos de nustro custom hook
   //La idea es que nuestro componente App consuma directamente el localStorage a través
   //de nuestro customhook de localStorage
   const {
     item: todos,
     saveItem: saveTodos,
     loading,
-    error
+    error,
   } = useLocalStorage("TODOS_V1", []);
 
   // El estado de nuestra búsqueda
@@ -116,27 +130,18 @@ function App() {
 
   return (
     <>
-      {/* Pasamos el estado a nuestro componente */}
-      <TodoCounter total={totalTodos} completed={completedTodos} />
-      <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
-      <TodoList>
-        {error && <p>Desespérate, hubo un error...</p>}
-        {loading && <p>Estamos cargando, no desesperes..</p>}
-        {!loading && !searchedTodos.length && <p>¡Crea tu primer Todo!</p>}
-
-        {/* Acá me despliega tantos TodosItems como haya registrados */}
-        {/* Regresamos solamente los TODOs buscados */}
-        {searchedTodos.map((todo) => (
-          <TodoItem
-            key={todo.text}
-            text={todo.text}
-            completed={todo.completed}
-            onComplete={() => completeTodo(todo.text)}
-            onDelete={() => deleteTodo(todo.text)}
-          />
-        ))}
-      </TodoList>
-      <CreateTodoButton />
+      {/* Pasamos los valores de loading y error */}
+      <AppUI
+        loading={loading}
+        error={error}
+        totalTodos={totalTodos}
+        completedTodos={completedTodos}
+        searchValue={searchValue}
+        setSearchValue={setSearchValue}
+        searchedTodos={searchedTodos}
+        completeTodo={completeTodo}
+        deleteTodo={deleteTodo}
+      />
     </>
   );
 }

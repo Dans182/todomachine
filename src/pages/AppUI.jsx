@@ -1,11 +1,11 @@
 import React from "react";
-import { TodoCounter } from "../TodoCounter";
-import { TodoSearch } from "../TodoSearch";
-import { TodoList } from "../TodoList";
-import { TodoItem } from "../TodoItem";
-import { CreateTodoButton } from "../CreateTodoButton";
+import { TodoCounter } from "../components/TodoCounter";
+import { TodoSearch } from "../components/TodoSearch";
+import { TodoList } from "../components/TodoList";
+import { TodoItem } from "../components/TodoItem";
+import { CreateTodoButton } from "../components/CreateTodoButton";
 
-// Desescructuramos las nuesvas props
+// Desescructuramos las nuevas props
 function AppUI({
   loading,
   error,
@@ -19,18 +19,20 @@ function AppUI({
 }) {
   return (
     <React.Fragment>
+      {/* Pasamos el estado a nuestro componente */}
       <TodoCounter total={totalTodos} completed={completedTodos} />
       <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue} />
 
       <TodoList>
-        // Mostramos un mensaje en caso de que ocurra algún error
         {error && <p>Desespérate, hubo un error...</p>}
-        // Mostramos un mensaje de cargando, cuando la aplicación está cargando
-        lo sdatos
+        {/* Mostramos un mensaje de cargando, cuando la aplicación está cargando
+        lo sdatos */}
         {loading && <p>Estamos cargando, no desesperes...</p>}
-        // Si terminó de cargar y no existen TODOs, se muestra un mensaje para
-        crear el primer TODO
+        {/* Si terminó de cargar y no existen TODOs, se muestra un mensaje para
+        crear el primer TODO */}
         {!loading && !searchedTodos.length && <p>¡Crea tu primer TODO!</p>}
+        {/* Acá me despliega tantos TodosItems como haya registrados */}
+        {/* Regresamos solamente los TODOs buscados */}
         {searchedTodos.map((todo) => (
           <TodoItem
             key={todo.text}
