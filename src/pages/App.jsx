@@ -12,26 +12,43 @@ import { TodoItem } from "../components/TodoItem";
 //   { text: "Llorar con la llorona", completed: false },
 // ];
 
-function App() {
-  const localStorageTodos = localStorage.getItem("TODOS_V1");
-  let parsedTodos;
+//Creamos nuestro propio React Hook, la única regla es que todo Custom Hook debe empezar
+//con la palabra "use"
 
+function useLocalStorage(itemName, initialValue) {
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
   //Con la exclamacion y localStorage (!localStorage) verificamos si no existe, es null, undefined o false o un string vacío.
-  if (!localStorageTodos) {
+  if (!localStorageItem) {
     //Recuerda que localstorage solo puede guardar información en strings
     /*Es muy importante saber que localStorage solamente puede guardar texto, 
     no objetos, arreglos, números, solo strings para esto podemos utilizar unos métodos de JSON
     Convertir a texto: JSON.stringify()
     Convertir a JavaScript: JSON.parse()*/
-    localStorage.setItem("TODOS_V1", JSON.stringify([]));
-    parsedTodos = [];
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   } else {
-    //si ya hay creado algo en storage, parsedTodos que es un String, ahora la transformamos en un objeto de js con JSON.parse.
-    parsedTodos = JSON.parse(localStorageTodos);
+    //si ya hay creado algo en storage, parsedItem que es un String, ahora la transformamos en un objeto de js con JSON.parse.
+    parsedItem = JSON.parse(localStorageItem);
   }
 
   // Estado inicial de nuestros TODOs
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const [item, setItem] = React.useState(parsedItem);
+
+  const saveItem = (newItem) => {
+    const stringifiedItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifiedItem);
+    setItem(newItem);
+    //En localStorage lo enviamos en String
+  };
+  return [item, saveItem];
+}
+
+function App() {
+  //La idea es que nuestro componente App consuma directamente el localStorage a través
+  //de nuestro customhook de localStorage
+
+  const [todos, saveTodos] = useLocalStorage("TODOS_V1", []);
 
   // El estado de nuestra búsqueda
   const [searchValue, setSearchValue] = useState("");
@@ -54,13 +71,6 @@ function App() {
       return todoText.includes(searchText);
     });
   }
-
-  const saveTodos = (newTodos) => {
-    const stringifiedTodos = JSON.stringify(newTodos);
-    localStorage.setItem("TODOS_V1", stringifiedTodos);
-    setTodos(newTodos);
-    //En localStorage lo enviamos en String
-  };
 
   /*Función para completar una tarea*/
   const completeTodo = (text) => {
