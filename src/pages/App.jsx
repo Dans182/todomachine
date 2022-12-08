@@ -16,24 +16,29 @@ import { TodoItem } from "../components/TodoItem";
 //con la palabra "use"
 
 function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
-  //Con la exclamacion y localStorage (!localStorage) verificamos si no existe, es null, undefined o false o un string vacío.
-  if (!localStorageItem) {
-    //Recuerda que localstorage solo puede guardar información en strings
-    /*Es muy importante saber que localStorage solamente puede guardar texto, 
-    no objetos, arreglos, números, solo strings para esto podemos utilizar unos métodos de JSON
-    Convertir a texto: JSON.stringify()
-    Convertir a JavaScript: JSON.parse()*/
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  } else {
-    //si ya hay creado algo en storage, parsedItem que es un String, ahora la transformamos en un objeto de js con JSON.parse.
-    parsedItem = JSON.parse(localStorageItem);
-  }
-
   // Estado inicial de nuestros TODOs
-  const [item, setItem] = React.useState(parsedItem);
+  const [item, setItem] = React.useState(initialValue);
+
+  useEffect(() => {
+    setTimeout(() => {
+      const localStorageItem = localStorage.getItem(itemName);
+      let parsedItem;
+      //Con la exclamacion y localStorage (!localStorage) verificamos si no existe, es null, undefined o false o un string vacío.
+      if (!localStorageItem) {
+        //Recuerda que localstorage solo puede guardar información en strings
+        /*Es muy importante saber que localStorage solamente puede guardar texto, 
+        no objetos, arreglos, números, solo strings para esto podemos utilizar unos métodos de JSON
+        Convertir a texto: JSON.stringify()
+        Convertir a JavaScript: JSON.parse()*/
+        localStorage.setItem(itemName, JSON.stringify(initialValue));
+        parsedItem = initialValue;
+      } else {
+        //si ya hay creado algo en storage, parsedItem que es un String, ahora la transformamos en un objeto de js con JSON.parse.
+        parsedItem = JSON.parse(localStorageItem);
+      }
+      setItem(parsedItem);
+    }, 1000);
+  });
 
   const saveItem = (newItem) => {
     const stringifiedItem = JSON.stringify(newItem);
