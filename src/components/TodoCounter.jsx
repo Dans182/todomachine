@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import "../styles/components/TodoCounter.css";
 
 // const estilos = {
@@ -7,9 +7,10 @@ import "../styles/components/TodoCounter.css";
 // }
 
 // Desestructuramos los props que pasamos al componente
-function TodoCounter({ total, completed }) {
+function TodoCounter() {
   // function TodoCounter(props) {
   //  const {total, completed} = props;
+  const { total, completed } = useContext;
   return (
     <>
       <h2 className="TodoCounter">
