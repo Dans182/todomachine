@@ -5,7 +5,7 @@ import { TodoSearch } from "../components/TodoSearch";
 import { TodoList } from "../components/TodoList";
 import { TodoItem } from "../components/TodoItem";
 import { CreateTodoButton } from "../components/CreateTodoButton";
-import { Modal } from "../Modal/modal";
+import { Modal } from "../Modal/Modal";
 
 // Desescructuramos las nuevas props
 function AppUI() {
