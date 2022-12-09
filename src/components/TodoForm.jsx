@@ -1,8 +1,40 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { TodoContext } from "../Context";
 import "../styles/components/TodoForm.css";
 
 function TodoForm() {
-  return <form></form>;
+  const { newTodoValue, setNewTodoValue } = useState("");
+
+  const { addTodo } = useContext(TodoContext);
+
+  const onChange = (event) => {
+    setNewTodoValue(event.target.value);
+  };
+
+  const onCancel = () => {};
+
+  const onSubmit = () => {
+    addTodo();
+  };
+
+  return (
+    <form onSubmit={onSubmit}>
+      <label>...</label>
+      <textarea
+        value={newTodoValue}
+        onChange={onChange}
+        placeholder="Cortar la cebolla para el almuerzo"
+      ></textarea>
+      <div>
+        <button type="button" onClick={onCancel}>
+          Cancelar
+        </button>
+        <button type="submit" onClick={onSubmit}>
+          Añadir
+        </button>
+      </div>
+    </form>
+  );
 }
 
 export { TodoForm };
