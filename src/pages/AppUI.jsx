@@ -36,7 +36,7 @@ function AppUI() {
           />
         ))}
       </TodoList>
-      <Modal><p>Hoooooola</p></Modal>
+      <Modal><p></p></Modal>
       <CreateTodoButton />
     </React.Fragment>
   );
