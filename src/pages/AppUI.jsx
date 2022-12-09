@@ -7,6 +7,9 @@ import { TodoItem } from "../components/TodoItem";
 import { CreateTodoButton } from "../components/CreateTodoButton";
 import { Modal } from "../Modal/Modal";
 import { TodoForm } from "../components/TodoForm";
+import { TodosError } from "../TodosError/index";
+import { TodosLoading } from "../TodosLoading/index";
+import { EmptyTodos } from "../EmptyTodos/index";
 
 // Desescructuramos las nuevas props
 function AppUI() {
@@ -25,13 +28,13 @@ function AppUI() {
       <TodoCounter />
       <TodoSearch />
       <TodoList>
-        {error && <p>Desespérate, hubo un error...</p>}
+        {error && <TodosError />}
         {/* Mostramos un mensaje de cargando, cuando la aplicación está cargando
         lo sdatos */}
-        {loading && <p>Estamos cargando, no desesperes...</p>}
+        {loading && <TodosLoading />}
         {/* Si terminó de cargar y no existen TODOs, se muestra un mensaje para
         crear el primer TODO */}
-        {!loading && !searchedTodos.length && <p>¡Crea tu primer TODO!</p>}
+        {!loading && !searchedTodos.length && <EmptyTodos />}
         {/* Acá me despliega tantos TodosItems como haya registrados */}
         {/* Regresamos solamente los TODOs buscados */}
         {searchedTodos.map((todo) => (
