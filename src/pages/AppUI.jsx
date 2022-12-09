@@ -9,8 +9,15 @@ import { Modal } from "../Modal/Modal";
 
 // Desescructuramos las nuevas props
 function AppUI() {
-  const { error, loading, searchedTodos, completeTodo, deleteTodo } =
-    useContext(TodoContext);
+  const {
+    error,
+    loading,
+    searchedTodos,
+    completeTodo,
+    deleteTodo,
+    openModal,
+    setOpenModal,
+  } = useContext(TodoContext);
   return (
     <React.Fragment>
       {/* Pasamos el estado a nuestro componente */}
@@ -36,8 +43,12 @@ function AppUI() {
           />
         ))}
       </TodoList>
-      <Modal><p></p></Modal>
-      <CreateTodoButton />
+      {openModal && (
+        <Modal>
+          <p></p>
+        </Modal>
+      )}
+      <CreateTodoButton setOpenModal={setOpenModal} />
     </React.Fragment>
   );
 }

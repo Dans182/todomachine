@@ -5,7 +5,7 @@ import { useLocalStorage } from "./useLocalStorage";
 const TodoContext = React.createContext();
 
 function TodoProvider(props) {
-    // Nos traemos todo el estado y las funciones de nuestra aplicación que queremos globales
+  // Nos traemos todo el estado y las funciones de nuestra aplicación que queremos globales
   // Desestructuramos los nuevos datos de nuestro custom hook
   //La idea es que nuestro componente App consuma directamente el localStorage a través
   //de nuestro customhook de localStorage
@@ -18,6 +18,7 @@ function TodoProvider(props) {
 
   // El estado de nuestra búsqueda
   const [searchValue, setSearchValue] = useState("");
+  const [openModal, setOpenModal] = useState(false);
 
   //const completedTodos = todos.filter((todo) => todo.completed == true).length;
   // Cantidad de TODOs completados
@@ -54,7 +55,7 @@ function TodoProvider(props) {
     saveTodos(newTodos);
   };
 
-    // Retornamos nuestro proveedor con nuestro contexto en la etiqueta value, que recibirá a toda nuestra aplicación, por eso necesitamos la prop children
+  // Retornamos nuestro proveedor con nuestro contexto en la etiqueta value, que recibirá a toda nuestra aplicación, por eso necesitamos la prop children
   return (
     <TodoContext.Provider
       value={{
@@ -67,6 +68,8 @@ function TodoProvider(props) {
         searchedTodos,
         completeTodo,
         deleteTodo,
+        openModal,
+        setOpenModal,
       }}
     >
       {props.children}

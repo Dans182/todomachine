@@ -2,10 +2,10 @@ import React from "react";
 import "../styles/components/CreateTodoButton.css";
 
 function CreateTodoButton(props) {
-
-  // const onClickButton = () =>{
-  //   alert("Prueba")
-  // }
+  const onClickButton = () => {
+    props.setOpenModal(true);
+    console.log("Click!");
+  };
 
   return (
     <>
@@ -17,9 +17,7 @@ function CreateTodoButton(props) {
         //Pero lo que no podemos hacer es mandar una orden, directamente, sin función en el
         //onClick, ya que esto lo que haría es ejecutar el codigo en el primer renderizado
         //Aca no está haciendo su "funcionalidad", no hace su función.
-        onClick={() => {
-          console.log("Click!");
-        }}
+        onClick={onClickButton}
       >
         +
       </button>
