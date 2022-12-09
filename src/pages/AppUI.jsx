@@ -6,6 +6,7 @@ import { TodoList } from "../components/TodoList";
 import { TodoItem } from "../components/TodoItem";
 import { CreateTodoButton } from "../components/CreateTodoButton";
 import { Modal } from "../Modal/Modal";
+import { TodoForm } from "../components/TodoForm";
 
 // Desescructuramos las nuevas props
 function AppUI() {
@@ -45,7 +46,7 @@ function AppUI() {
       </TodoList>
       {openModal && (
         <Modal>
-          <p></p>
+          <TodoForm />
         </Modal>
       )}
       <CreateTodoButton setOpenModal={setOpenModal} />
