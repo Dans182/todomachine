@@ -7,9 +7,9 @@ import { TodoItem } from "../components/TodoItem";
 import { CreateTodoButton } from "../components/CreateTodoButton";
 import { Modal } from "../Modal/Modal";
 import { TodoForm } from "../components/TodoForm";
-import { TodosError } from "../TodosError/index";
-import { TodosLoading } from "../TodosLoading/index";
-import { EmptyTodos } from "../EmptyTodos/index";
+import { TodosError } from "../TodosError/TodosError.jsx";
+import { TodosLoading } from "../TodosLoading/TodosLoading.jsx";
+import { EmptyTodos } from "../EmptyTodos/EmptyTodos.jsx";
 
 // Desescructuramos las nuevas props
 function AppUI() {
