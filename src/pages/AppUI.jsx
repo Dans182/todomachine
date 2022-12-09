@@ -5,6 +5,7 @@ import { TodoSearch } from "../components/TodoSearch";
 import { TodoList } from "../components/TodoList";
 import { TodoItem } from "../components/TodoItem";
 import { CreateTodoButton } from "../components/CreateTodoButton";
+import { Modal } from "../Modal/modal";
 
 // Desescructuramos las nuevas props
 function AppUI() {
@@ -15,7 +16,6 @@ function AppUI() {
       {/* Pasamos el estado a nuestro componente */}
       <TodoCounter />
       <TodoSearch />
-
       <TodoList>
         {error && <p>Desespérate, hubo un error...</p>}
         {/* Mostramos un mensaje de cargando, cuando la aplicación está cargando
@@ -36,6 +36,7 @@ function AppUI() {
           />
         ))}
       </TodoList>
+      <Modal><p>Hoooooola</p></Modal>
       <CreateTodoButton />
     </React.Fragment>
   );

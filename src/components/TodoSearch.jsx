@@ -22,7 +22,6 @@ function TodoSearch() {
         placeholder="Add your task"
         value={searchValue}
       />
-      {searchValue}
     </>
   );
 }
